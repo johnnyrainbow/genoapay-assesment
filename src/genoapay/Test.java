@@ -93,6 +93,7 @@ class Test {
 		ProfitCalculator pc = new ProfitCalculator();
 		Assert.assertEquals(-1, pc.getMaxProfit(stockPrices));
 	}
+
 	@org.junit.jupiter.api.Test
 	void nullListTest() {
 		int[] stockPrices = null;

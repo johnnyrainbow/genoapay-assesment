@@ -13,8 +13,8 @@ public class ProfitCalculator {
 	 * efficient function that takes an array of stock prices and returns the best
 	 * profit could have been made from 1 purchase and 1 sale of 1 stock.
 	 * 
-	 * You must buy before you sell. 
-	 * You may not buy and sell in the same time step (at least 1 minute must pass).
+	 * You must buy before you sell. You may not buy and sell in the same time step
+	 * (at least 1 minute must pass).
 	 */
 
 	public int getMaxProfit(int[] list) {
@@ -47,7 +47,9 @@ public class ProfitCalculator {
 		}
 
 		if (greatest_diff == 0) { // Was a list of decrementing values, take the minimum loss
-			greatest_diff = Collections.min(diff_list);
+			if (diff_list.size() > 0) {
+				greatest_diff = Collections.min(diff_list);
+			}
 		}
 		return greatest_diff;
 	}
