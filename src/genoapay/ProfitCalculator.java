@@ -14,14 +14,18 @@ public class ProfitCalculator {
 	 * (at least 1 minute must pass).
 	 */
 
-	public int getMaxProfit(int[] list) {
+	// NOTE: I have implemented two solutions, one in quadratic time and
+	// one in linear time.
+
+	
+	// Linear time O(n)
+	public int getMaxProfitLinear(int[] list) {
 		int current_lowest_val = 0;
 		int greatest_diff = 0;
 		int lowest_diff = 0;
 
-		if (list == null || list.length < 2) {
+		if (list == null || list.length < 2)
 			return -1; // List requires not null and at least 2 values
-		}
 
 		current_lowest_val = list[0]; // Set to first value in list
 		for (int i = 1; i < list.length; i++) {
@@ -31,22 +35,44 @@ public class ProfitCalculator {
 				int diff = list[i] - list[i - 1];
 
 				if (greatest_diff == 0 && diff != 0) { // Account for decrement list scenario
-					if (diff < lowest_diff) {
+					if (diff < lowest_diff)
 						lowest_diff = diff;
-					}
 				}
 				continue;
 			}
 
-			// Check current value against current lowest value
 			int diff = list[i] - current_lowest_val;
-			if (diff > greatest_diff) {
+
+			if (diff > greatest_diff) // Check current value against current lowest value
 				greatest_diff = diff; // Set new greatest diff
-			}
 		}
 
-		if (greatest_diff == 0) { // Was a list of decrementing values, take the minimum loss
+		if (greatest_diff == 0) // Was a list of decrementing values, take the minimum loss
 			greatest_diff = lowest_diff;
+
+		return greatest_diff;
+	}
+
+	
+	// Quadratic time O(n^2)
+	public int getMaxProfitQuadratic(int[] list) {
+		Integer greatest_diff = null;
+		if (list == null || list.length < 2)
+			return -1; // List requires not null and at least 2 values
+
+		for (int i = 0; i < list.length; i++) {
+			Integer diff = null;
+			for (int j = i + 1; j < list.length; j++) {
+				int delta = list[j] - list[i];
+				if (diff == null || delta > diff)
+					diff = delta;
+			}
+
+			if (diff == null)
+				continue;
+
+			if (greatest_diff == null || diff > greatest_diff)
+				greatest_diff = diff;
 		}
 		return greatest_diff;
 	}
