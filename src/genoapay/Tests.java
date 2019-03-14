@@ -1,7 +1,5 @@
 package genoapay;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.Assert;
 
 class Tests {
