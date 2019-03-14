@@ -20,7 +20,7 @@ public class ProfitCalculator {
 	public int getMaxProfit(int[] list) {
 		int current_lowest_val = 0;
 		int greatest_diff = 0;
-		ArrayList<Integer> diff_list = new ArrayList<Integer>();
+		int lowest_diff = 0;
 
 		if (list == null || list.length < 2) {
 			return -1; // List requires not null and at least 2 values
@@ -29,17 +29,19 @@ public class ProfitCalculator {
 		current_lowest_val = list[0]; // Set to first value in list
 		for (int i = 0; i < list.length; i++) {
 
-			if (list[i] < current_lowest_val) { // If current value smaller than xs
+			if (list[i] < current_lowest_val) { // If current value smaller than current lowest value
 				current_lowest_val = list[i];
 				int diff = list[i] - list[i - 1];
 
 				if (greatest_diff == 0 && diff != 0) { // Account for decrement list scenario
-					diff_list.add(diff); // Add the diff to a list
+					if (diff < lowest_diff) {
+						lowest_diff = diff;
+					}
 				}
 				continue;
 			}
 
-			// Check current value against xs
+			// Check current value against current lowest value
 			int diff = list[i] - current_lowest_val;
 			if (diff > greatest_diff) {
 				greatest_diff = diff; // Set new greatest diff
@@ -47,9 +49,7 @@ public class ProfitCalculator {
 		}
 
 		if (greatest_diff == 0) { // Was a list of decrementing values, take the minimum loss
-			if (diff_list.size() > 0) {
-				greatest_diff = Collections.min(diff_list);
-			}
+			greatest_diff = lowest_diff;
 		}
 		return greatest_diff;
 	}
