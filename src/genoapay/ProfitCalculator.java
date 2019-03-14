@@ -17,12 +17,10 @@ public class ProfitCalculator {
 	// NOTE: I have implemented two solutions, one in quadratic time and
 	// one in linear time.
 
-	
 	// Linear time O(n)
 	public int getMaxProfitLinear(int[] list) {
 		int current_lowest_val = 0;
-		int greatest_diff = 0;
-		int lowest_diff = 0;
+		Integer greatest_diff = null;
 
 		if (list == null || list.length < 2)
 			return -1; // List requires not null and at least 2 values
@@ -30,30 +28,22 @@ public class ProfitCalculator {
 		current_lowest_val = list[0]; // Set to first value in list
 		for (int i = 1; i < list.length; i++) {
 
+			int diff = list[i] - current_lowest_val;
+			if (greatest_diff == null)
+				greatest_diff = diff;
+
 			if (list[i] < current_lowest_val) { // If current value smaller than current lowest value
 				current_lowest_val = list[i];
-				int diff = list[i] - list[i - 1];
-
-				if (greatest_diff == 0 && diff != 0) { // Account for decrement list scenario
-					if (diff < lowest_diff)
-						lowest_diff = diff;
-				}
 				continue;
 			}
-
-			int diff = list[i] - current_lowest_val;
 
 			if (diff > greatest_diff) // Check current value against current lowest value
 				greatest_diff = diff; // Set new greatest diff
 		}
-
-		if (greatest_diff == 0) // Was a list of decrementing values, take the minimum loss
-			greatest_diff = lowest_diff;
-
+		
 		return greatest_diff;
 	}
 
-	
 	// Quadratic time O(n^2)
 	public int getMaxProfitQuadratic(int[] list) {
 		Integer greatest_diff = null;
