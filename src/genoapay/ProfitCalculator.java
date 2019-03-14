@@ -27,7 +27,7 @@ public class ProfitCalculator {
 		}
 
 		current_lowest_val = list[0]; // Set to first value in list
-		for (int i = 0; i < list.length; i++) {
+		for (int i = 1; i < list.length; i++) {
 
 			if (list[i] < current_lowest_val) { // If current value smaller than current lowest value
 				current_lowest_val = list[i];
